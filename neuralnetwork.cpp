@@ -159,7 +159,6 @@ NeuralNetwork::Neuron::Neuron(double startValue, bool isInput)
 
 void NeuralNetwork::CreateStructure()
 {
-    std::cout << "layers count : " << this->layers << std::endl;
     srand (static_cast <unsigned> (time(nullptr)));
     for ( unsigned long layer = 0; layer < this->layers; layer++ )
     {

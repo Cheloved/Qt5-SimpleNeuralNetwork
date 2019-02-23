@@ -48,6 +48,7 @@ private:
 
     QPushButton* clearBtn;
     QPushButton* startBtn;
+    QPushButton* createBtn;
 
     QAction* action_SaveImage;
     QAction* action_CreateWeights;
@@ -58,6 +59,7 @@ private slots:
     void action_CreateWeights_OnClick();
     void changeWidthSlider();
     void startButtonClicked();
+    void createButtonClicked();
 };
 
 #endif // MAINWINDOW_H

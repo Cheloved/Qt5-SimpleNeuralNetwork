@@ -16,22 +16,21 @@ void MainWindow::changeWidthSlider()
     static_cast<QLabel*>( widgetList["widthLabel"] )->setText( QString::fromStdString( std::to_string(widthSlider->value()) ) );
 }
 
-void MainWindow::startButtonClicked()
+void MainWindow::createButtonClicked()
 {
-    std::vector<int> layers = { 400, 16, 10 };
+    std::vector<int> layers = { 400, 16, 16, 10 };
     temporary = area->image.scaled(20,20, Qt::KeepAspectRatio);
     net = new NeuralNetwork( layers, &temporary );
     qDebug() << "[OK] Create network";
-    try {
-        net->LoadWeights(net->WeightPath);
-        qDebug() << "[OK] Load weights";
-    } catch(int i) {
-        qDebug() << "[Error] Cannot open weights";
-        qDebug() << "Code: " << i;
-    }
+}
+
+void MainWindow::startButtonClicked()
+{
+    net->LoadWeights(net->WeightPath);
+    qDebug() << "[OK] Load weights";
     net->Learn(answerLine->text().toInt());
     qDebug() << "[OK] Network run";
-    qDebug() << net->GetNetworkResult();
+    qDebug() << "Network result: " << net->GetNetworkResult();
 
     for ( unsigned long i = 0; i < net->neurons.back().size(); i++ )
     {
@@ -49,7 +48,7 @@ void MainWindow::action_CreateWeights_OnClick()
 {
     net->CreateWeights();
     net->SaveWeights(net->WeightPath);
-    qDebug() << "[OK] Create weights";
+    qDebug() << "[OK] Create and save weights";
 }
 
 void MainWindow::createActions()
@@ -78,6 +77,7 @@ void MainWindow::makeConnections()
     connect(widthSlider, &QSlider::valueChanged, this, &MainWindow::changeWidthSlider);
     connect(startBtn, &QPushButton::clicked, this, &MainWindow::startButtonClicked);
     connect(action_CreateWeights, &QAction::triggered, this, &MainWindow::action_CreateWeights_OnClick);
+    connect(createBtn, &QPushButton::clicked, this, &MainWindow::createButtonClicked);
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -92,6 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
     startBtn = static_cast<QPushButton*>( widgetList["startButton"] );
     action_CreateWeights = static_cast<QAction*>( widgetList["actionCreate_weights"] );
     answerLine = static_cast<QLineEdit*>( widgetList["answerLine"] );
+    createBtn = static_cast<QPushButton*>( widgetList["createButton"] );
 
     createActions();
     generateTable();
