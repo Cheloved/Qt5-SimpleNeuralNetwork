@@ -16,7 +16,7 @@ void ScribbleArea::setPenWidth(int newWidth) { this->penWidth = newWidth; }
 
 void ScribbleArea::clearArea()
 {
-    QPixmap::fromImage( this->image.scaled(40,40, Qt::KeepAspectRatio) ).save("test.png");
+    QPixmap::fromImage( this->image.scaled(20,20, Qt::KeepAspectRatio) ).save("test.png");
     image.fill(qRgb(255,255,255));
     modified = true;
     update();

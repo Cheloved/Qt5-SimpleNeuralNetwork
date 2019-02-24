@@ -60,7 +60,7 @@ public:
 
     std::vector< std::vector<Neuron> > neurons;
 
-    double N = 1;
+    double N = 0.1;
     std::vector<double> data;
     std::string WeightPath = "Weights.txt";
     unsigned long layers;

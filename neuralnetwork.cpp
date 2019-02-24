@@ -136,7 +136,7 @@ std::vector<double> NeuralNetwork::GetDataFromImage(QImage* dataImage)
         {
             QColor color = dataImage->pixel(x,y);
             double middle = (color.red() + color.green() + color.blue()) / 3;
-            //middle = middle > 127? 1 : 0;
+            middle = middle > 127? 1 : 0;
             data.push_back(middle);
         }
     }
@@ -206,7 +206,7 @@ std::vector<int> GenerateAnswer(int answer)
     for ( int i = 0; i < 10; i++ )
     {
         if ( i == answer )
-            ans.push_back(10);
+            ans.push_back(1);
         else
             ans.push_back(0);
     }
@@ -221,7 +221,6 @@ void NeuralNetwork::Learn(int answer)
     {
         std::cout << "Network has been learned!" << std::endl;
         this->SaveWeights(this->WeightPath);
-        return;
     }
     for ( unsigned long i = 0; i < this->neurons.back().size(); i++ )
     {

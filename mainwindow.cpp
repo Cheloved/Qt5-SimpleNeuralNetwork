@@ -18,8 +18,9 @@ void MainWindow::changeWidthSlider()
 
 void MainWindow::createButtonClicked()
 {
-    std::vector<int> layers = { 400, 16, 16, 10 };
+    std::vector<int> layers = { 400, 50, 20, 10 };
     temporary = area->image.scaled(20,20, Qt::KeepAspectRatio);
+    QPixmap::fromImage( area->image.scaled(20,20, Qt::KeepAspectRatio) ).save("test.png");
     net = new NeuralNetwork( layers, &temporary );
     qDebug() << "[OK] Create network";
 }
